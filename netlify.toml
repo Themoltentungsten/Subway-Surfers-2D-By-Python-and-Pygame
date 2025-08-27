@@ -1,3 +1,26 @@
+# netlify.toml
 [build]
   command = "pip install -r requirements.txt && python -m pygbag --build ."
   publish = "build/web"
+
+# --- add below ---
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Cross-Origin-Opener-Policy = "same-origin"
+    # start with credentialless (more forgiving if any runtime file is on a CDN)
+    Cross-Origin-Embedder-Policy = "credentialless"
+    Cross-Origin-Resource-Policy = "same-origin"
+    X-Content-Type-Options = "nosniff"
+
+# ensure correct MIME for wasm (usually automatic, but harmless to be explicit)
+[[headers]]
+  for = "/*.wasm"
+  [headers.values]
+    Content-Type = "application/wasm"
+
+# optional: some builds emit .data bundles
+[[headers]]
+  for = "/*.data"
+  [headers.values]
+    Content-Type = "application/octet-stream"
