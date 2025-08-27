@@ -1,0 +1,3 @@
+[build]
+  command = "pip install -r requirements.txt && python -m pygbag --build ."
+  publish = "build/web"
