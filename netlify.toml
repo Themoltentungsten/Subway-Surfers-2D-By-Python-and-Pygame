@@ -1,6 +1,6 @@
 # netlify.toml
 [build]
-  command = "pip install -r requirements.txt && python -m pygbag --build ."
+  command = "pip install -r requirements.txt && python -m pygbag --build . && cp _headers build/web/_headers"
   publish = "build/web"
 
 # --- add below ---
